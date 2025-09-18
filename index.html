@@ -1,222 +1,210 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Descrubra sua media</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Descubra sua média</title>
 </head>
-<body>
-    <header class="flex justify-center items-center gap-4 p-5 flex-col">
-        <h2 class="text-3lx font-bold gray-400 flex align-center justify-center p-5 "> Calcule sua media do bimestre </h2>
-        <button type="button" href="#" id="ComoF" class="rounded bg-orange-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-orange-700 " >Como funciona ?</button>
-    </header>
-    <main>
-        <div  id="Funciona" class="flex justify-center items-center gap-4 p-5 flex-col hidden">
-            <p class="flex text-center ">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                 Possimus voluptas temporibus, ullam aliquid doloribus illum enim iste 
-                molestiae velit ipsum, architecto accusantium illo obcaecati asperiores quo doloremque voluptate, iure eveniet.
-            </p>
-        </div>
+<body class="min-h-screen">
+  <header class="flex justify-center items-center gap-4 p-5 flex-col">
+    <h2 class="text-3xl font-bold text-gray-800 text-center p-5">
+      Calcule sua média do bimestre
+    </h2>
+    <button type="button" id="ComoFunciona"
+      class="rounded bg-orange-500 px-5 py-2 text-sm font-semibold text-white hover:bg-orange-700">
+      Como funciona?
+    </button>
+  </header>
 
-        <nav class="flex items-center justify-center">
-        <ul class="flex items-center justify-center gap-5 max-w-lg rouded-full p-2 " >
+  <main class="space-y-6">
+    <!-- bloco "Como funciona" -->
+    <section id="Funciona" class="flex justify-center items-center p-5 hidden">
+      <p class="max-w-2xl text-center text-gray-700">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus voluptas temporibus, ullam
+        aliquid doloribus illum enim iste molestiae velit ipsum, architecto accusantium illo obcaecati
+        asperiores quo doloremque voluptate, iure eveniet.
+      </p>
+    </section>
+
+    <!-- botões -->
+    <nav class="flex items-center justify-center">
+      <ul class="flex items-center justify-center gap-5">
         <li>
-        <button type="button" id="materia" class="text-orange-600 p-3 hover:text-orange-400">adicionar materia</button>
+          <button type="button" id="inserirDados" class="text-orange-600 p-3 hover:text-orange-400">
+            Adicione os dados
+          </button>
         </li>
-        <li>
-        <button type="button" id="nota1" class="text-orange-600 p-3 hover:text-orange-400">adicionar primeira nota</button>
-        </li>
-        <li>
-        <button type="button" id="nota2" class="text-orange-600 p-3 hover:text-orange-400">adicionar segunda nota</button>
-        </nav>
-        <div class="flex justify-center p-5">
-            <table>
-                <tr>
-                    <th class="border border-gray-500 p-2 font-semibold" id="tabelaMaterias">
-                        matéria
-                    </th>
-                    <th class="border border-gray-500 p-2 font-semibold" id="tabelaNota1">
-                        nota 1 
-                    </th>
-                    <th class="border border-gray-500 p-2 font-semibold" id="tabelaNota2">
-                        nota 2
-                    </th>
-                    <th class="border border-gray-500 p-2 font-semibold" id="media">
-                        média
-                    </th>
-                    <tbody id="corpoTabela">
+      </ul>
+    </nav>
 
-                    </tbody>
+    <!-- tabela -->
+    <section class="flex justify-center p-5">
+      <table class="border-collapse border border-gray-300">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border border-gray-300 px-3 py-2">Nome</th>
+            <th class="border border-gray-300 px-3 py-2">Nota 1</th>
+            <th class="border border-gray-300 px-3 py-2">Nota 2</th>
+            <th class="border border-gray-300 px-3 py-2">Média</th>
+          </tr>
+        </thead>
+        <tbody id="corpoTabela"></tbody>
+      </table>
+    </section>
 
-                </tr>
-            </table>
+    <div class="flex justify-center">
+      <button type="button"
+        class="rounded bg-green-500 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700"
+        onclick="exportToXML()">
+        Exportar tabela
+      </button>
+    </div>
 
-        </div>
+    <!-- modal -->
+    <section id="modal-questions" class="flex justify-center items-center p-5">
+      <div id="modal-content"
+        class="relative flex flex-col items-center bg-orange-200 p-6 gap-4 rounded-lg w-full max-w-md hidden">
+        <button type="button" id="close" class="absolute top-2 right-3 text-xl text-red-700 cursor-pointer">&times;</button>
+        <h4 id="pergunta-h4" class="font-semibold text-orange-900 text-center">
+          Qual é o aluno?
+        </h4>
+        <input type="text" id="DadosInseridos" placeholder="Digite aqui..." class="w-full border rounded px-3 py-2 text-center">
+        <button id="proxima"
+          class="rounded bg-orange-500 px-5 py-2 text-sm font-semibold text-white hover:bg-orange-700">
+          Confirmar
+        </button>
+      </div>
+    </section>
+  </main>
 
-        <div class=" hidden fixed inset-0 bg-gray-900 bg-opacity-50 text-white flex  flex-col gap-5 items-center justify-center z-50" id="modalMateria">
-            <h4 >
-                Digite o nome da materia
-            </h4>
-            <input type="text" id="NomeMateria" class="border text-black" required>
-            <button type="submit" class="rounded bg-green-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-green-700 max-w-sm "  id="confirmar">Confirmar</button>
-        </div>
-        <div class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 text-white flex  flex-col gap-5 items-center justify-center z-50" id="modalNota1">
-            <h4 >
-                Digite sua nota
-            </h4>
-            <input type="number" id="novaNota1" class="border text-black" required>
-            <button type="button" class="rounded bg-green-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-green-700 max-w-sm "  id="confirmarNota1">Confirmar</button>
-        </div>
-        <div class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex  text-white flex-col gap-5 items-center justify-center z-50" id="modalNota2">
-            <h4 >
-                Digite sua nota 
-            </h4>
-            <input type="number" id="novaNota2" class="border text-black">
-            <button type="submit" class="rounded bg-green-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-green-700 max-w-sm "  id="confirmarNota2">Confirmar</button>
-        </div>
+  <script>
+    // Referências
+    const textF = document.getElementById('Funciona');
+    const btnF = document.getElementById('ComoFunciona');
+    const btnAdicionarDados = document.getElementById('inserirDados');
+    const proxima = document.getElementById('proxima');
+    const modalRespostas = document.getElementById('modal-content');
+    const closeBtn = document.getElementById('close');
+    const perguntaElemento = document.getElementById('pergunta-h4');
+    const inputDados = document.getElementById('DadosInseridos');
+    const corpoTabela = document.getElementById('corpoTabela');
 
-    </main>
-    <footer>
+    // Perguntas
+    const perguntas = [
+      { id: 0, texto: 'Qual o nome do aluno?' },
+      { id: 1, texto: 'Qual é a primeira nota?' },
+      { id: 2, texto: 'Qual é a segunda nota?' }
+    ];
 
-    </footer>
+    let indicePerguntaAtual = 0;
+    let respostas = {};
+
+    // Mostrar/ocultar "Como funciona"
+    btnF.addEventListener('click', () => {
+      textF.classList.toggle('hidden');
+    });
+
+    // Abrir modal e iniciar fluxo
+    btnAdicionarDados.addEventListener('click', () => {
+      modalRespostas.classList.remove('hidden');
+      indicePerguntaAtual = 0;
+      respostas = {};
+      mostrarProximaPergunta();
+    });
+
+    // Confirmar resposta
+    proxima.addEventListener('click', () => {
+      const perguntaAtual = perguntas[indicePerguntaAtual].texto;
+      const valor = inputDados.value.trim();
+
+      if (!valor) {
+        inputDados.focus();
+        return;
+      }
+
+      respostas[perguntaAtual] = valor;
+      indicePerguntaAtual++;
+      inputDados.value = '';
+      mostrarProximaPergunta();
+    });
+
+    // Fechar modal
+    closeBtn.addEventListener('click', () => {
+      modalRespostas.classList.add('hidden');
+    });
+
+    
+    function mostrarProximaPergunta() {
+      if (indicePerguntaAtual < perguntas.length) {
+        perguntaElemento.textContent = perguntas[indicePerguntaAtual].texto; 
+        inputDados.focus();
+      } else {
+        // terminou: cria a linha na tabela e fecha o modal
+        criarLinhaTabela();
+        modalRespostas.classList.add('hidden');
+      }
+    }
+
+    function criarLinhaTabela() {
+      const tr = document.createElement('tr');
+
+      const nome = respostas['Qual o nome do aluno?'] || '';
+      const n1 = parseFloat(respostas['Qual é a primeira nota?'] || '0');
+      const n2 = parseFloat(respostas['Qual é a segunda nota?'] || '0');
+      const media = ((n1 + n2) / 2).toFixed(2);
+
+      [nome, n1, n2, media].forEach(val => {
+        const td = document.createElement('td');
+        td.className = "border border-gray-300 px-3 py-2 text-center";
+        td.textContent = val;
+        tr.appendChild(td);
+      });
+
+      corpoTabela.appendChild(tr);
+    }
+
+    function exportToXML() {
+      const tabela = document.querySelector('table');
+      const corpo = document.getElementById('corpoTabela');
+      if (!corpo || corpo.rows.length === 0) {
+        alert('A tabela está vazia. Adicione dados antes de exportar.');
+        return;
+      }
+
+      const cabecalhos = Array.from(tabela.querySelectorAll('thead th')).map(th =>
+        th.textContent.toLowerCase().trim().replace(/\s/g, '_')
+      );
+
+      const linhas = corpo.querySelectorAll('tr');
+      let xmlString = '<?xml version="1.0" encoding="UTF-8"?>\n<registros>\n';
+
+      linhas.forEach(linha => {
+        xmlString += '  <registro>\n';
+        const celulas = linha.querySelectorAll('td');
+        cabecalhos.forEach((cabecalho, index) => {
+          const valor = (celulas[index]?.textContent || '').trim();
+          xmlString += `    <${cabecalho}>${valor}</${cabecalho}>\n`;
+        });
+        xmlString += '  </registro>\n';
+      });
+
+      xmlString += '</registros>';
+
+      const blob = new Blob([xmlString], { type: 'application/xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'dados_tabela.xml';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      console.log('Exportação para XML concluída!');
+    }
+
+    
+    window.exportToXML = exportToXML;
+  </script>
 </body>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // 1. Chamar os botões para abrir os modais/informação geral 
-    const botaoAdicionarMateria = document.getElementById('materia');
-    const botaoAdicionarNota1 = document.getElementById('nota1');
-    const botaoAdicionarNota2 = document.getElementById('nota2');
-    const botaoComoF = document.getElementById('ComoF');
-
-    // 2. Buscando modais/comoF
-    const modalMateria = document.getElementById('modalMateria');
-    const modalNota1 = document.getElementById('modalNota1');
-    const modalNota2 = document.getElementById('modalNota2');
-    const divFunciona = document.getElementById('Funciona'); 
-
-    // 3. Criando um evento para remover o hidden (Abrir as modais)
-    botaoAdicionarMateria.addEventListener('click', function() {
-        modalMateria.classList.remove('hidden');
-    });
-
-    botaoAdicionarNota1.addEventListener('click', function() {
-        modalNota1.classList.remove('hidden');
-    });
-
-    botaoAdicionarNota2.addEventListener('click', function() {
-        modalNota2.classList.remove('hidden');
-    });
-    
-    // Adicionando evento para a div "ComoF"
-    if (botaoComoF) {
-        botaoComoF.addEventListener('click', function() {
-            if (divFunciona) {
-                divFunciona.classList.toggle('hidden');
-            }
-        });
-    }
-
-    // 4. Adicionando as referências para os inputs e o corpo da tabela
-    const inputNomeMateria = document.getElementById('NomeMateria');
-    const inputNota1 = document.getElementById('novaNota1');
-    const inputNota2 = document.getElementById('novaNota2');
-    const corpoTabela = document.getElementById('corpoTabela'); 
-    
-    //parte enviar os dados digitados para a tabela (tbm estou fazendo a logica da tabela para adicionar nas colunas certas)
-    const botaoConfirmarMateria = document.getElementById('confirmar');
-    const botaoConfirmarNota1 = document.getElementById('confirmarNota1');
-    const botaoConfirmarNota2 = document.getElementById('confirmarNota2');
-    
-    if (botaoConfirmarMateria) {
-        botaoConfirmarMateria.addEventListener('click', function() {
-            const nomeMateria = inputNomeMateria.value.trim();
-            if (nomeMateria) {
-                // Cria a nova linha na tabela
-                const novaLinha = document.createElement('tr');
-                
-                const celulaMateria = document.createElement('td');
-                celulaMateria.textContent = nomeMateria;
-                celulaMateria.classList.add('border', 'border-gray-500', 'p-2');
-                
-                const celulaNota1 = document.createElement('td');
-                celulaNota1.textContent = '-';
-                celulaNota1.classList.add('border', 'border-gray-500', 'p-2');
-                
-                const celulaNota2 = document.createElement('td');
-                celulaNota2.textContent = '-';
-                celulaNota2.classList.add('border', 'border-gray-500', 'p-2');
-
-                const celulaMedia = document.createElement('td');
-                celulaMedia.textContent = '-';
-                celulaMedia.classList.add('border', 'border-gray-500', 'p-2');
-
-                novaLinha.appendChild(celulaMateria);
-                novaLinha.appendChild(celulaNota1);
-                novaLinha.appendChild(celulaNota2);
-                novaLinha.appendChild(celulaMedia);
-                
-                corpoTabela.appendChild(novaLinha);
-
-                inputNomeMateria.value = '';
-                modalMateria.classList.add('hidden');
-            } else {
-                alert('Por favor, digite o nome da matéria.');
-            }
-        });
-    }
-    
-    if (botaoConfirmarNota1) {
-        botaoConfirmarNota1.addEventListener('click', function() {
-            const nota = inputNota1.value.trim();
-            if (nota) {
-                // A lógica para adicionar a nota na última linha adicionada
-                const linhas = corpoTabela.getElementsByTagName('tr');
-                if (linhas.length > 0) {
-                    const ultimaLinha = linhas[linhas.length - 1];
-                    const celulaNota1 = ultimaLinha.getElementsByTagName('td')[1]; 
-                    celulaNota1.textContent = nota;
-                }
-                inputNota1.value = '';
-                modalNota1.classList.add('hidden');
-            } else {
-                alert('Por favor, digite a nota.');
-            }
-        });
-    }
-    //parte para fazer os calculos da media
-    if (botaoConfirmarNota2){
-        botaoConfirmarNota2.addEventListener('click',function(){
-            const nota2Str = inputNota2.value.trim();
-            if (nota2Str) {
-                const linhas = corpoTabela.getElementsByTagName('tr');
-                if (linhas.length > 0) {
-                    const ultimaLinha = linhas[linhas.length - 1];
-                    const celulaNota1 = ultimaLinha.getElementsByTagName('td')[1];
-                    const celulaNota2 = ultimaLinha.getElementsByTagName('td')[2]; // Terceira célula
-                    const celulaMedia = ultimaLinha.getElementsByTagName('td')[3]; // Quarta célula
-
-                    celulaNota2.textContent = nota2Str;
-
-                    // Lógica para o cálculo da média
-                    const nota1 = parseFloat(celulaNota1.textContent);
-                    const nota2 = parseFloat(nota2Str);
-                    
-                    if (!isNaN(nota1) && !isNaN(nota2)) {
-                        const media = (nota1 + nota2) / 2;
-                        celulaMedia.textContent = media.toFixed(2);
-                    } else {
-                        celulaMedia.textContent = 'Erro'; // Exibe "Erro" se a Nota 1 não for um número
-                    }
-                }
-                inputNota2.value = '';
-                modalNota2.classList.add('hidden');
-            } else {
-                alert('Por favor, digite a nota.');
-            }
-        });
-    }
-});
-
-</script>
 </html>
